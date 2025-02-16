@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import CoreLocation
 
 final class MainViewModel: ObservableObject {
 
@@ -14,6 +15,10 @@ final class MainViewModel: ObservableObject {
 
     @Published var users: [User] = []
     @Published var pinnedUser: User?
+
+    var authStatus: CLAuthorizationStatus {
+        locationService.authStatus
+    }
 
     var sortedUsers: [User] {
         guard let pinned = pinnedUser else { return users }
@@ -83,5 +88,11 @@ final class MainViewModel: ObservableObject {
                 pinnedUser = user
             }
         }
+    }
+
+    @MainActor
+    func openAppSettings() {
+        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+        UIApplication.shared.open(url)
     }
 }

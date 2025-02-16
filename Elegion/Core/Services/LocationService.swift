@@ -10,10 +10,13 @@ import CoreLocation
 final class LocationService: NSObject {
 
     private var locationManager: CLLocationManager!
-    private var timer: Timer?
     private var currentLocation: CLLocation?
 
     private var pinnedUserLocation: CLLocation?
+
+    var authStatus: CLAuthorizationStatus {
+        locationManager.authorizationStatus
+    }
 
     override init() {
         super.init()
@@ -33,12 +36,10 @@ final class LocationService: NSObject {
 
     private func startUpdatingLocation() {
         locationManager.startUpdatingLocation()
-        print("\(#function)")
     }
 
     private func stopUpdatingLocation() {
         locationManager.stopUpdatingLocation()
-        print("\(#function)")
     }
 
     func calculateDistance(from: CLLocation, to: CLLocation) -> CLLocationDistance? {
