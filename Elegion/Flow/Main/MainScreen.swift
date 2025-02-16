@@ -13,14 +13,14 @@ struct MainScreen: View {
 
     var body: some View {
         VStack {
-            if let pinnedUser = viewModel.pinnedUser {
-                UserCell(user: pinnedUser, distance: 0)
-                    .frame(height: 128)
-                    .onTapGesture {
-                        viewModel.togglePin(for: pinnedUser)
-                    }
-            }
             ScrollView {
+                if let pinnedUser = viewModel.pinnedUser {
+                    UserCell(user: pinnedUser, distance: 0)
+                        .frame(height: 128)
+                        .onTapGesture {
+                            viewModel.togglePin(for: pinnedUser)
+                        }
+                }
                 LazyVStack {
                     ForEach(viewModel.sortedUsers) { user in
                         UserCell(user: user, distance: viewModel.calculateDistance(to: user))
@@ -33,8 +33,8 @@ struct MainScreen: View {
                     }
                 }
                 .padding(.top, 32)
-            }.navigationTitle("Пользователи")
-        }
+            }
+        }.navigationTitle("Пользователи")
     }
 }
 
