@@ -34,7 +34,7 @@ struct MainScreen: View {
                 }
                 .padding(.top, 32)
             }
-        }.navigationTitle("Пользователи")
+        }.navigationTitle(LocalizedStringKey("page_users"))
     }
 }
 
