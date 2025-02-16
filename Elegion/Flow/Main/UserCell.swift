@@ -28,8 +28,7 @@ struct UserCell: View {
                 Spacer()
 
                 HStack {
-                    Text("\(Int(distance))")
-                    Text("Метров")
+                    Text(String.localizedStringWithFormat(NSLocalizedString("meter", comment: ""), Int(distance)))
                 }
                     .padding(.trailing, 16)
             }
