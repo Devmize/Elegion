@@ -42,6 +42,10 @@ final class LocationService: NSObject {
         locationManager.stopUpdatingLocation()
     }
 
+    func requestAccessToGeo() {
+        locationManager.requestWhenInUseAuthorization()
+    }
+
     func calculateDistance(from: CLLocation, to: CLLocation) -> CLLocationDistance? {
 
         let distance = from.distance(from: to)
@@ -80,12 +84,7 @@ extension LocationService {
 
     func sendLocationToServer() async throws -> Bool {
 
-        // guard let location = currentLocation else { throw AppError.authentication(.userNotFound) }
-
         try await Task.sleep(nanoseconds: 1_000_000_000)
-
-        // TODO: Обработка и отправка на сервев, в случае ошибки вернуть необходимый error
-        // throw AppError.database(.writeFailed)
 
         return true
     }
@@ -93,10 +92,6 @@ extension LocationService {
     func fetchUsersLocations() async throws -> [User] {
         try await Task.sleep(nanoseconds: 1_500_000_000)
 
-        // TODO: Отправка запроса на сервер, в случае ошибки вернуть необходимый error
-        // AppError.database(.readFailed)
-
-        // TODO: Вынести пользователей в отдельный сервис
         return [
             User(id: 0, image: "leps", name: "Eugene", coordinates: randomizeLocation(from: CLLocation(latitude: 55.751244, longitude: 37.618423), withRadius: 1)),
             User(id: 1, name: "Vita", coordinates: randomizeLocation(from: CLLocation(latitude: 55.752369, longitude: 37.619752), withRadius: 1)),

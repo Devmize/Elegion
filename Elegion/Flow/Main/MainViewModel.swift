@@ -72,6 +72,10 @@ final class MainViewModel: ObservableObject {
         }
     }
 
+    func fetchAccessToGeo() {
+        locationService.requestAccessToGeo()
+    }
+
     func calculateDistance(to: User) -> Double {
         if let pinned = pinnedUser {
             return locationService.calculateDistance(from: pinned.coordinates, to: to.coordinates) ?? 0

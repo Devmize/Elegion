@@ -16,10 +16,20 @@ struct MainScreen: View {
             switch viewModel.authStatus {
             case .authorizedAlways, .authorizedWhenInUse:
                 authorizationView()
-            case .denied, .restricted, .notDetermined:
+            case .denied, .restricted:
                 settingsView()
+            case .notDetermined:
+                Text("Запросить доступ")
+                    .onAppear {
+                        viewModel.fetchAccessToGeo()
+                    }
+                    .onTapGesture {
+                        viewModel.fetchAccessToGeo()
+                    }
+                    .navigationTitle("")
             @unknown default:
                 Text("Что-то пошло не так")
+                    .navigationTitle("")
             }
         }
         .animation(.default, value: viewModel.authStatus)
@@ -63,11 +73,12 @@ struct MainScreen: View {
             )
             .multilineTextAlignment(.center)
 
-            Text("Открыть настройки")
+            Button {
+                viewModel.openAppSettings()
+            } label: {
+                Text("Открыть настройки")
+            }
                 .defaultButtonModifier()
-                .onTapGesture {
-                    viewModel.openAppSettings()
-                }
         }
         .padding(.horizontal, 20)
         .navigationTitle("")
